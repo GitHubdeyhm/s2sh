@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+ "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 设置开发模式得到更多错误提示信息 -->
+ 	<constant name="struts.devMode" value="false" />
+ 	<!-- 设置编码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 设置浏览器是否缓存静态内容。默认值为true(生产环境下使用),开发阶段最好关闭  -->
+	<constant name="struts.serve.static.browserCache" value="false" /> 	
+	<!-- 指定整个项目允许上传的文件最大字节数。默认值是2097152(2M) 设置为20M-->
+    <constant name="struts.multipart.maxSize" value="20971520" />    
+    <!-- 设置上传文件的临时文件夹,默认使用javax.servlet.context.tempdir -->
+    <constant name="struts.multipart.saveDir " value="/tmp" />
+    <!-- 开启动态方法调用 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <!-- 由spring容器管理action -->
+    <constant name="struts.objectFactory" value="spring" />
+    <!-- 当convention插件的映射关系改变时重新加载 -->
+ 	<constant name="struts.convention.classes.reload" value="false" />
+ 	 <!-- convention插件映射url路径-->
+ 	<constant name="struts.convention.result.path" value="/WEB-INF/jsp" />
+ 	<!-- 设置action的默认父包 -->
+ 	<constant name="struts.convention.default.parent.package" value="basePackage"></constant>
+ 	
+	<package name="basePackage" extends="convention-default">
+		<!-- 配置拦截器 -->
+		<interceptors>
+			<!--定义一个登录拦截器-->
+			<interceptor name="loginInterceptor" class="learn.frame.interceptor.LoginInterceptor" />
+			<interceptor-stack name="baseInterceptor">
+				<!--配置默认拦截器-->
+				<interceptor-ref name="defaultStack" />
+				<!--配置登陆拦截器-->
+				<interceptor-ref name="loginInterceptor">
+					<param name="excludeMethods">login</param><!-- 不拦截登陆方法 -->
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 配置包的默认拦截器，即在该包内的action都参与该拦截器的功能 -->
+		<default-interceptor-ref name="baseInterceptor" />
+	
+		<!-- 全局跳转页面定义 -->
+ 	 	<global-results>
+ 	 		<result name="main">/WEB-INF/jsp/index/index.jsp</result>
+ 	 		<result name="login" type="redirect">/login.jsp</result>
+ 	 		<result name="exception" type="redirect">/WEB-INF/exception/exception.jsp</result>
+ 	 	</global-results>
+ 	 	
+ 	 	<!-- 配置全局异常，当在action层出现异常时跳转的结果页面。防止在action层出现异常的时候在页面显示异常信息
+ 	 		比如输入在action里没有的方法名称，不会抛出异常。 -->
+ 	 	<global-exception-mappings>
+ 	 		<exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+ 	 	</global-exception-mappings>
+	</package>
+</struts>

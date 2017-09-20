@@ -1,0 +1,6 @@
+.myeclipse
+.settings
+.classpath
+.mymetadata
+.projectWebRoot/WEB-INF/classes
+WebRoot/WEB-INF/lib

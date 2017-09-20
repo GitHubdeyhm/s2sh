@@ -1,0 +1,59 @@
+@CHARSET "UTF-8";
+/**
+ * 此文件覆盖easyui框架的默认样式
+ */
+
+/********去掉easyui验证文本框的图标********/
+form .validatebox-invalid {
+	background-image: none;
+}
+
+/********对话框按钮居中显示********/
+.dialog-button {
+	text-align: center;
+}
+
+/********设置easyui的窗体对话框按钮样式********/
+.dialog-button a.l-btn, .messager-button a.l-btn {
+	background: #F48419 url(../../image/button/btn_bg.gif) 0 -28px no-repeat;
+	-moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    width: 65px;
+    height: 28px;
+    padding-right: 0;
+    border-width: 0;
+    color: #fff;
+    filter: none;
+}
+.dialog-button a.l-btn:first-child, .messager-button a.l-btn:first-child {
+	background-color: #2C7AD0;
+	background-position:  0 0;
+	margin-right: 15px;
+}
+.dialog-button a.l-btn span.l-btn-left, .messager-button a.l-btn span.l-btn-left {
+	padding-left: 0;
+}
+.dialog-button a.l-btn span span.l-btn-text, .messager-button a.l-btn span span.l-btn-text {
+	top: 6px;
+}
+
+/*****去除对话框的按钮点击时的虚线****/
+.dialog-button span.l-btn-text, .messager-button span.l-btn-text {
+	outline: none;
+}
+
+/*******设置easyui表格内容居中显示**********/
+.datagrid-header table, .datagrid-body table {
+	text-align: center;	
+}
+
+/********设置easyui弹出层的背景颜色********/
+.window-mask {
+	background-color: #000;
+}
+
+/**设置easyui的tooltip框的边框线颜色**/
+.tooltip {
+	border-color: #0081C2;
+}

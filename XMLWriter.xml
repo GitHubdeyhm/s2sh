@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <user>
+    <realName>真实名称</realName>
+    <age>100</age>
+  </user>
+  <role id="role_name" name="角色名称"/>
+  <role name="项目经理"/>
+  <role name="部门经理"/>
+  <role name="系统管理员"/>
+  <teacher>
+    <student name="米老鼠"/>
+    <student name="加菲猫"/>
+  </teacher>
+</root>

@@ -1,0 +1,126 @@
+﻿@charset=utf-8;
+
+/***********标签重置样式********/
+body, div, ul, ol, li, p, h1, h2, h3, h4, h5, h6, table, th, tr, td, form, label, legend,
+fieldset, input, select, textarea {
+	margin: 0;
+	padding: 0;
+}
+
+/**设置字体样式*/
+body, button, input, select, textarea {
+	font: 12px tahoma, arial, 'Hiragino Sans GB', sans-serif;
+}
+
+/********列表********/
+ol, ul {
+	list-style: none;
+}
+
+/********标题********/
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: bold;
+}
+
+/********超链接********/
+a, a:hover, a:focus, a:active {
+	text-decoration: none;
+	outline: none;
+}
+
+/********清楚浮动********/
+.clearfix:after {
+	display: block;
+	clear: both;
+	content: "";
+	font-size: 0;
+	visibility: hidden;
+	height: 0;
+}
+
+/******设置只读文本框和多行文本框的背景颜色**********/
+.text-read, input[disabled='disabled'] {
+	background-color: #f3f3f3;
+}
+
+/******文本溢出时的显示样式--溢出部分显示三个小数点*******/
+.text-over {
+	white-space: nowrap;/**文本超出宽度时不会换行*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/**********新增表单样式**************/
+.input-table {
+	margin: 22px auto;
+	color: #000000;
+    font-size: 12px;
+    width: 90%;
+    min-width: 200px;
+    border-collapse: collapse;
+}
+.input-table tr td, .input-table tr th {
+	font-weight: normal;
+	background-color: #fff;
+	padding: 5px 10px;
+	border: 1px solid #b7c9df;
+}
+.input-table tr th {
+	width: 80px;
+	text-align: right;
+	background-color: #f2f7fd;
+}
+.input-table input[type='text'], .input-table input[type='password'],
+.input-table textarea {
+    border: 1px solid #b5cadf;
+    color: #585858;
+    height: 22px;
+    line-height: 22px;
+    text-indent: 4px;
+    vertical-align: middle;
+    width: 170px;
+    font-size: 12px;
+}
+.input-table textarea {
+    resize: none;
+    width: 280px;
+    height: 74px;
+    overflow: auto;/**IE9下多行文本框默认有滚动条*/
+    word-wrap: break-word;/**长英文单词自动换行*/
+}
+.input-table em {
+	font-size: 1.1em;
+	color: #f00;
+	font-style: normal;
+	margin-right: 5px;
+}
+.input-table input.combo-text {
+	border: none;
+}
+
+/********表格搜索栏文本框样式设置********/
+.search-toolbar {
+	padding: 2px 6px;	
+}
+/**设置easyui的搜索栏按钮样式*/
+.search-toolbar .easyui-linkbutton span {
+	vertical-align: middle;
+}
+.search-toolbar input[type='text'] {
+	border: 1px solid #0081C2;
+	width: 140px;
+	height: 22px;
+	line-height: 22px;
+	text-indent: 4px;
+}
+/********表格搜索栏easyui下拉框样式********/
+.search-toolbar input.combo-text {
+	border: none;
+}
+
+/********页面的宽度设置********/
+#container {
+	width: 1104px;
+	margin: 30px auto;
+}

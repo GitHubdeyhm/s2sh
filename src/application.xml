@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+    
+    <!-- 1:引入数据库信息配置的属性文件，需引入context命名空间
+	<context:property-placeholder location="classpath:jdbc.properties" /> -->
+	
+	<!-- 2:引入数据库信息配置的属性文件，需引入beans -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:jdbc.properties" />
+		<property name="fileEncoding" value="UTF-8" />
+	</bean>
+	
+	<!-- dbcp数据源配置 -->
+	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 设置连接池初始值 -->
+		<property name="initialSize" value="5" />
+		<!-- 设置连接池最大值 -->
+		<property name="maxActive" value="100" />
+		<!-- 设置连接池最小空闲值 -->
+		<property name="minIdle" value="20" />
+		<!-- 设置连接池最大空闲值 -->
+		<property name="maxIdle" value="50" />
+		
+		<!-- sql语句，将连接返回给调用者之前，用此sql验证从连接池取出的连接是否可用，如果指定则查询必须是sql select且需返回至少一行记录 -->
+		<property name="validationQuery" value="select 1" />
+		<!-- 设置是否从连接池中取出连接前进行检验，如果检验失败则从池中删除该连接并尝试取出一个新的连接，设置为true时需正确设置validationQuery -->
+		<property name="testOnBorrow" value="false" />
+		<!-- 设置连接是否被空闲连接回收器进行检验，如果检验失败则删除该连接，设置为true时需正确设置validationQuery -->
+		<property name="testWhileIdle" value="true" />
+		<!-- 设置空闲连接回收器线程运行的周期，以毫秒为单位，设置为非正数代表不运行空闲连接回收器线程，需正确设置validationQuery -->
+		<property name="timeBetweenEvictionRunsMillis" value="120000" />
+	</bean>
+	
+	<!-- hibernate配置 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+			</props>
+		</property>
+		<!-- 扫描指定包下的hibernate注解配置，可指定多个包名，用逗号隔开 -->
+		<property name="packagesToScan" value="learn.frame.entity" />		
+	</bean>
+	
+	<!-- 配置hibernate事务 -->
+	<bean name="transactionManager"	class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+    <!-- 扫描包下的spring注解，包括自动装配和自动检测bean的定义 -->
+    <context:component-scan base-package="learn.frame" />
+    
+    <!-- spring注解配置事务，以织入事务管理切面，其中transaction-manager的值默认为"transactionManager"-->
+    <tx:annotation-driven />
+    
+    <!-- 通过aop配置哪些类的哪些方法参与事务 -->
+    <!-- <aop:config>
+    	<aop:pointcut id="serviceMethod" expression="execution(* shop.service..*.*(..))" />
+    	<aop:advisor pointcut-ref="serviceMethod" advice-ref="txAdvice" />
+    </aop:config> -->
+    
+    <!-- 配置事务传播特性 -->
+    <!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    	<tx:attributes>
+    		<tx:method name="save*" propagation="REQUIRED" />
+    		<tx:method name="delete*" propagation="REQUIRED" />
+    		<tx:method name="update*" propagation="REQUIRED" />
+    		查询方法只读
+    		<tx:method name="get*" read-only="true" />
+    		<tx:method name="load*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="*" read-only="true" />
+    	</tx:attributes>
+    </tx:advice> -->
+</beans>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root><user userName="用户名">content</user><role roleName="角色名称"><test>内容节点</test></role><role roleName="角色名称2"/></root>

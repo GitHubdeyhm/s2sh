@@ -1,0 +1,9 @@
+[
+	{"value":"-1", "text":"请选择"},
+	{"value":"add", "text":"新增"},
+	{"value":"delete", "text":"删除"},
+	{"value":"search", "text":"查询"},
+	{"value":"update", "text":"编辑"},
+	{"value":"check", "text":"审批"},
+	{"value":"resetPwd", "text":"重置密码"}
+]
